@@ -1,15 +1,13 @@
 import cv2
 import sys, os
 
-USAGE = "USAGE::: python3 createSet <number of copies> <source img> (destination)"
 
-if (len(sys.argv) != 4):
-    print("No destination folder specified... exporting in current folder")
-if (len(sys.argv) < 3):
-    print("ERROR: must add one integer argument and your source file path")
+USAGE = "USAGE::: python3 createSet <number of copies> <source img> "
+
+if (len(sys.argv) != 3):
+    print("ERROR: must add one integer argument, your source file path, and destination")
     print(USAGE)
     exit(-1)
-
 
 img = cv2.imread(sys.argv[2])
 
@@ -28,11 +26,13 @@ except ValueError as ex:
 
 imgH = img.shape[0]
 imgW = img.shape[1]
+
 newDir = "./{}_srcSet".format(sys.argv[2])
 
 if not os.path.exists(newDir):
     os.makedirs(newDir)
 
+print("MAKING SMALLER COPIES IN SAME FOLDER AS IMAGE... ")
 for i in range(numTinyCopies):
     imgH = imgH // 2
     imgW = imgW // 2
